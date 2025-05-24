@@ -1,0 +1,22 @@
+ข้อมูลที่สร้างใน DynamoDB ที่ใช้นะ
+เรียงลำดับตามนี้นะ
+
+ProductID เป็น string (primary key)
+catagory เป็น string
+name เป็น string
+price เป็น number
+stock เป็น number
+
+ส่วนการ insert ข้อมูลเข้าตารางนะ
+1. กดที่ DynamoDB
+2.ไป Table ของตนเอง
+3.ไปที่ Action -> create item
+4. กดเปลี่ยนจาก Form เป็น JSON View
+คำสั่งการ insert (ตัวอย่าง query)
+{
+  "ProductID": { "S": "P001" },
+  "name": { "S": "iPhone 15" },
+  "category": { "S": "Smartphone" },
+  "price": { "N": "29900" },
+  "stock": { "N": "5" }
+}
