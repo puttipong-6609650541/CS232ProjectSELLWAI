@@ -1,0 +1,19 @@
+ข้อมูลการสร้าง SNS ที่ใช้ในระบบแจ้งเตือนสินค้า
+1.กดเข้า AWS SNS ผ่าน AWS Console
+2.เลือกเมนู Topics → กดปุ่ม Create topic
+3.ตั้งค่าดังนี้:
+Type: Standard
+Name: low-stock-alerts (หรือชื่อที่ต้องการ)
+4.กดปุ่ม Create topic
+5.หลังจากสร้างเสร็จ จะได้ Topic ARN เช่น:
+arn:aws:sns:us-east-1:xxxxxxxxxxxx:low-stock-alerts
+
+ส่วนการสร้าง Subscription
+1.คลิกที่ชื่อ Topic ที่เพิ่งสร้าง
+2.เลือกแท็บ Subscriptions → กดปุ่ม Create subscription
+3.ตั้งค่าดังนี้:
+Protocol: Email
+Endpoint: ใส่อีเมล เช่น example@email.com
+4.กด Create subscription
+5.ระบบจะส่งอีเมลไปยังที่อยู่นั้น ให้เข้าไปในอีเมล → กด Confirm subscription เพื่อยืนยันการรับแจ้งเตือน
+
