@@ -1,0 +1,71 @@
+const line = require('@line/bot-sdk');
+
+const config = {
+  channelAccessToken: 'aqwnQE4I0de3KONts7fd1dhDlmiNBtSsQb1AOzCTsAOSKxxoEMK4JeU+9U0+dwi6uJIHA1/5tLXX4SoreEyyzCgTCzHfWe3ITyPgQkOwdQl3DjgRhRS5VEMDAtDdaxeC2SxO9xEK0et2xk4jWeqmtwdB04t89/1O/w1cDnyilFU='
+};
+
+const client = new line.Client(config);
+
+exports.handler = async (event) => {
+  try {
+    const body = JSON.parse(event.body);
+
+    // 🔐 ถ้า events ไม่ใช่อาร์เรย์หรือว่าง
+    if (!body.events || !Array.isArray(body.events) || body.events.length === 0) {
+      console.log('No events received');
+      return {
+        statusCode: 200,
+        body: 'OK'
+      };
+    }
+
+    const eventObj = body.events[0];
+
+    if (eventObj.type === 'message' && eventObj.message.type === 'text') {
+      const userMessage = eventObj.message.text;
+      let replyText = '';
+
+      // 🔑 คำถามสินค้า
+      const cheapKeywords = ['อะไรถูกที่สุด', 'ถูกสุด', 'ถูก', 'อะไรถูก', 'อะไรถูกสุด'];
+      const suggestKeywords = ['แนะนำ', 'แนะนำสินค้าหน่อย', 'แนะนำให้หน่อย', 'มีอะไรบ้าง', 'ตอนนี้มีสินค้าอะไรบ้าง'];
+      const warrantyKeywords = ['ประกัน', 'รับประกัน', 'มีประกันไหม', 'ประกันยังไง'];
+      const shippingKeywords = ['ส่งของ', 'จัดส่ง', 'ใช้เวลากี่วัน', 'ส่งยังไง', 'ส่งกี่วัน'];
+      const orderKeywords = ['สั่งซื้อ', 'สั่งยังไง', 'ซื้อยังไง', 'อยากสั่ง', 'วิธีซื้อ'];
+      const helpKeywords = ['help', 'ช่วย', 'คำสั่ง', 'ทำอะไรได้บ้าง'];
+
+      if (cheapKeywords.some(k => userMessage.includes(k))) {
+        replyText = `iPad Air 11 นิ้ว ราคา 23,990 บาท\nดูสินค้า: https://bit.ly/4kzDhYc`;
+      } else if (suggestKeywords.some(k => userMessage.includes(k))) {
+        replyText = `ตอนนี้มีสินค้าทั้งหมดดังนี้ครับ:\n\n📱 iPhone 15 – 29,900 บาท\nhttps://bit.ly/4kcfHBe\n\n📱 iPhone 16 – 39,900 บาท\nhttps://bit.ly/3FpKsU3\n\n📱 iPad Air 11 นิ้ว – 23,990 บาท\nhttps://bit.ly/4kzDhYc`;
+      } else if (warrantyKeywords.some(k => userMessage.includes(k))) {
+        replyText = `สินค้าทุกชิ้นรับประกันศูนย์ Apple 1 ปีเต็ม\nหากมีปัญหาสามารถเข้าศูนย์ได้ทุกสาขาครับ`;
+      } else if (shippingKeywords.some(k => userMessage.includes(k))) {
+        replyText = `เราจัดส่งสินค้าผ่าน Kerry หรือ Flash Express ภายใน 1-2 วันครับ`;
+      } else if (orderKeywords.some(k => userMessage.includes(k))) {
+        replyText = `สามารถสั่งซื้อผ่านเว็บไซต์ หรือแชทกับแอดมินโดยตรงก็ได้ครับ\nหรือติดต่อ: https://bit.ly/order-contact`;
+      } else if (helpKeywords.some(k => userMessage.toLowerCase().includes(k))) {
+        replyText = `คำสั่งที่สามารถใช้ได้:\n- แนะนำสินค้า\n- อะไรถูกสุด\n- ประกัน\n- ส่งของ\n- สั่งซื้อ`;
+      } else {
+        replyText = `ขอโทษครับ ผมยังไม่เข้าใจคำถาม\nลองพิมพ์ว่า "help" เพื่อดูรายการคำสั่งทั้งหมดได้นะครับ`;
+      }
+
+      await client.replyMessage(eventObj.replyToken, {
+        type: 'text',
+        text: replyText
+      });
+    }
+
+    // ✅ ตอบกลับ LINE Platform เสมอ
+    return {
+      statusCode: 200,
+      body: 'OK'
+    };
+
+  } catch (err) {
+    console.error('Error:', err);
+    return {
+      statusCode: 500,
+      body: 'Internal Server Error'
+    };
+  }
+};
