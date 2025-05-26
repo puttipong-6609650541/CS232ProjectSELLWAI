@@ -1,0 +1,22 @@
+สร้าง API สี่ตัว ใน API Gateway
+1.กด Create API
+2.เลือก HTTP API
+3.API name ตั้งชื่อ API แล้วตรงในส่วนของ Intregation ให้เลือกLambda ส่วน Function แล้วเลือก Dynamo
+DynamoDB : ใช้ ANY แล้วตรง / ใส่เป็น /Dynamo ให้มันไปเชื่อมกับ Lambda ตัวที่ชื่อ Dynamo
+4.จากนั้นกด Next จน create ได้เลย
+5.ถ้าจะเพิ่ม API สามารถใช้ตัว API เดียวกันได้ แต่ route ต้อง create ตั้งค่าตามนี้
+สำหรับ Search : ใช้ GET แล้วตรง / ใส่เป็น /searchproduct แล้วให้มันไปเชื่อมกับ Lambda ตัวที่ชื่อ SearchProduct
+สำหรับ UpdateStock : ใช้ POST แล้วตรง / ใส่เป็น /update-stock แล้วให้มันไปเชื่อมกับ Lambda ตัวที่ชื่อ UpdateStock
+สำหรับ AddProduct : ใช้ POST แล้วตรง / ใส่เป็น /addproduct แล้วให้มันไปเชื่อมกับ Lambda ตัวที่ชื่อ Addproduct
+6.ไปที่ Intregation >> เลือก route ที่เป็น / ที่เราต้องการจะต่อเข้ากับ lambda กดปุ่มสีฟ้า Create and attach an integration
+7.เลือก integration type เป็น lambda
+8.เลือก lambda ตัวที่เราต้องการจะต่อ
+9.กด create
+
+*** ข้อควรระวัง ***
+สังเกตฟังก์ชัน js ที่ fetch ไปให้ใส่ Invoke URL ของตนเอง
+ซึ่งสามารถหาได้จากแถบ stage ข้างซ้ายมือ
+สมมติเช่น https://fbo9013iqb.execute-api.us-east-1.amazonaws.com
+จากนั้นนำ / ของแต่ละตัวไปใส่ ยกตัวอย่างเช่น
+https://fbo9013iqb.execute-api.us-east-1.amazonaws.com/Dynamo <<< คือ api ของตาราง DynamoDB
+https://fbo9013iqb.execute-api.us-east-1.amazonaws.com/searchproduct <<< คือ api ของการค้นหาสินค้า

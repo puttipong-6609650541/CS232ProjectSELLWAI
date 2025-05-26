@@ -1,0 +1,28 @@
+Amplify
+1.ไปที่ AWS Amplify
+2.กด create new app
+3.กด Deploy แบบไม่ใช้ git
+4.กด Next
+5.ลากไฟล์ zip project ที่พัฒนาไปใส่
+6.จากนั้นรอ Deploy
+7.ไปที่ all app แล้วดูตัว app ที่เราสร้างขึ้นมา
+8.คลิกไปที่ตัว app นั้นจากนั้น จะได้ Domain เว็ปของเรามา
+
+Cognito
+1.ไปที่ Amazon Cognito
+2.ตรง userpool ให้กด create user pool
+3.ใช้เป็น Traditional web application
+4.กรอกชื่อ เช่น SellWaiUserPool
+5.Configure option ให้กด Email กับ username
+6.Require attibutes เลือก email
+7.Add a return URL ใช้ domain ที่ได้จาก Amplify มาใส่
+8.พอได้ตัวของ userpool มาแล้วให้ไปที่ Application >> Application client >> Login page
+9.ตรง Manage login pages configuration กด Edit
+10.ตรง Allow signed out URL ให้วาง Domain เดิม
+11.OAuth 2.0 grant types ให้เลือก Implicit grant เท่านั้น >> save
+12.ตรง user ไปที่ create user 
+13.กรอก User name กับ Password ลงไป ทำสองuser ให้จำ username กับ passwordไว้ เพราะเราจะใช้ login
+14.ตรง Group ไปที่ Create group
+15.กรอก Groupname เป็น RegularStaff กับอีก Group ตั้งเป็นอะไรก็ได้
+16.กดไปที่ Regular staff แล้วแอด 1 user เข้า group ผ่าน Group >> Group member >> Add user to group
+17.อีก Group ใช้อีก user ทำเหมือนข้อ 16.
